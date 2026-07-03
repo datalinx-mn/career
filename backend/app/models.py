@@ -16,6 +16,14 @@ class FormSubmission(Base):
     __tablename__ = "form_submissions"
     id = Column(String, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
+    phone = Column(String)
+    last_name = Column(String)
+    first_name = Column(String)
+    gender = Column(String)
+    age = Column(Integer)
+    school_class = Column(String)
+    email = Column(String)
+    career_interest = Column(String)
     answers = Column(JSON)
     status = Column(String, default="pending") # pending, paid, completed
     created_at = Column(DateTime, default=datetime.utcnow)

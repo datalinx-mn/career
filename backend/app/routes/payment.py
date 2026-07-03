@@ -28,6 +28,7 @@ def confirm_payment(submission_id: str, db: Session = Depends(database.get_db)):
     
     submission.status = "completed"
     db.commit()
+    db.refresh(report)
     
     # Auto-send email
     user = db.query(models.User).filter(models.User.id == submission.user_id).first()
@@ -36,4 +37,8 @@ def confirm_payment(submission_id: str, db: Session = Depends(database.get_db)):
         report_url = f"http://localhost:3000/report/{submission.id}"
         email_service.send_report_email(user.email, report_url)
     
-    return {"status": "success", "message": "Payment confirmed and report generated/sent"}
+    return {
+        "status": "success", 
+        "message": "Payment confirmed and report generated/sent",
+        "report": report
+    }

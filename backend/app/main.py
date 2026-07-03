@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
-from .routes import form, payment, report
+from .routes import form, payment, report, questions
 from dotenv import load_dotenv
 import os
 
@@ -25,6 +25,7 @@ app.add_middleware(
 app.include_router(form.router, prefix="/api", tags=["Form"])
 app.include_router(payment.router, prefix="/api", tags=["Payment"])
 app.include_router(report.router, prefix="/api", tags=["Report"])
+app.include_router(questions.router, prefix="/api", tags=["Questions"])
 
 @app.get("/")
 def health_check():
